@@ -1,4 +1,4 @@
-### Sistema de Biblioteca em JavaScript 
+# Sistema de Biblioteca em JavaScript 
 
 
 
@@ -11,8 +11,7 @@ Este exercício tem como objetivo praticar a programação orientada a objetos, 
 ## Parte 1
 
 
-
-# Crie uma classe base chamada EntidadeBibliografica com os seguintes atributos:
+### Crie uma classe base chamada EntidadeBibliografica com os seguintes atributos:
 
 titulo
 autor
@@ -22,14 +21,14 @@ emprestado: booleano
 usuarioEmprestimo: Referência ao usuário que pegou emprestado (pode ser null se não estiver emprestado)
 
 
-# Crie duas subclasses de EntidadeBibliografica: Livro e Revista. A classe Livro deve ter um atributo adicional chamado genero.
+### Crie duas subclasses de EntidadeBibliografica: Livro e Revista. A classe Livro deve ter um atributo adicional chamado genero.
 
 
 
 Implemente os métodos emprestar e devolver na classe EntidadeBibliografica. O método emprestar deve atribuir o usuário que está pegando emprestado e definir emprestado como true. O método devolver deve resetar o status de empréstimo e desatribuir o usuário.
 
 
-# Crie uma classe Usuario com os seguintes atributos:
+### Crie uma classe Usuario com os seguintes atributos:
 
 
 
