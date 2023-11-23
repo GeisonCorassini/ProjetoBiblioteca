@@ -13,12 +13,12 @@ Este exercício tem como objetivo praticar a programação orientada a objetos, 
 
 ### Crie uma classe base chamada EntidadeBibliografica com os seguintes atributos:
 
-titulo
-autor
-anoPublicacao
-codigo
-emprestado: booleano
-usuarioEmprestimo: Referência ao usuário que pegou emprestado (pode ser null se não estiver emprestado)
+titulo  
+autor  
+anoPublicacao  
+codigo  
+emprestado: booleano  
+usuarioEmprestimo: Referência ao usuário que pegou emprestado (pode ser null se não estiver emprestado)  
 
 
 ### Crie duas subclasses de EntidadeBibliografica: Livro e Revista. A classe Livro deve ter um atributo adicional chamado genero.
@@ -32,6 +32,6 @@ Implemente os métodos emprestar e devolver na classe EntidadeBibliografica. O m
 
 
 
-nome
-registroAcademico
+nome  
+registroAcademico  
 dataNascimento (no formato "YYYY-MM-DD") ex. (1995-12-25)
