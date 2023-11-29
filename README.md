@@ -39,13 +39,13 @@ dataNascimento (no formato "YYYY-MM-DD") ex. (1995-12-25)
 ## Parte 2
 
 ### Crie uma classe Biblioteca com os seguintes atributos:
-acervo: array para armazenar as entidades bibliográficas
-usuarios: array para armazenar os usuários 
+acervo: array para armazenar as entidades bibliográficas  
+usuarios: array para armazenar os usuários  
 
 ### Implemente os seguintes métodos na classe Biblioteca:
 
-adicionarItem(item): Adiciona uma entidade bibliográfica ao acervo.
-listarAcervo(): Exibe o acervo da biblioteca.
-adicionarUsuario(usuario): Adiciona um usuário à biblioteca.
-emprestarItem(codigo, registroAcademico): Empréstimo de um item para um usuário.
-devolverItem(codigo): Devolução de um item ao acervo.
+adicionarItem(item): Adiciona uma entidade bibliográfica ao acervo.  
+listarAcervo(): Exibe o acervo da biblioteca.  
+adicionarUsuario(usuario): Adiciona um usuário à biblioteca.  
+emprestarItem(codigo, registroAcademico): Empréstimo de um item para um usuário.  
+devolverI  tem(codigo): Devolução de um item ao acervo.
