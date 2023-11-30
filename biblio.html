@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca</title>
+</head>
+<body>
+
+  <h1>Biblioteca</h1>
+
+  <!-- Cadastrar Livro -->
+  <h2>Cadastrar Livro</h2>
+  <label for="livroTitulo">Título:</label>
+  <input type="text" id="livroTitulo" required>
+  <label for="livroAutor">Autor:</label>
+  <input type="text" id="livroAutor" required>
+  <label for="livroAno">Ano de Publicação:</label>
+  <input type="text" id="livroAno" required>
+  <label for="livroCodigo">Código:</label>
+  <input type="text" id="livroCodigo" required>
+  <label for="livroGenero">Gênero:</label>
+  <input type="text" id="livroGenero" required>
+  <button type="button" onclick="cadastrarLivro()">Cadastrar Livro</button>
+
+  <!-- Cadastrar Usuário -->
+  <h2>Cadastrar Usuário</h2>
+  <label for="usuarioNome">Nome:</label>
+  <input type="text" id="usuarioNome" required>
+  <label for="usuarioRegistro">Registro Acadêmico:</label>
+  <input type="text" id="usuarioRegistro" required>
+  <label for="usuarioDataNascimento">Data de Nascimento (YYYY-MM-DD):</label>
+  <input type="text" id="usuarioDataNascimento" required>
+  <button type="button" onclick="cadastrarUsuario()">Cadastrar Usuário</button>
+
+  <!-- Emprestar Item -->
+  <h2>Emprestar Item</h2>
+  <label for="itemCodigo">Código do Item:</label>
+  <input type="text" id="itemCodigo" required>
+  <label for="usuarioRegistroEmprestimo">Registro Acadêmico do Usuário:</label>
+  <input type="text" id="usuarioRegistroEmprestimo" required>
+  <button type="button" onclick="emprestarItem()">Emprestar Item</button>
+
+  <!-- Devolver Item -->
+  <h2>Devolver Item</h2>
+  <label for="itemCodigoDevolucao">Código do Item para Devolução:</label>
+  <input type="text" id="itemCodigoDevolucao" required>
+  <button type="button" onclick="devolverItem()">Devolver Item</button>
+
+  <!-- Procurar Entidade -->
+  <h2>Procurar Entidade</h2>
+  <label for="codigoBusca">Código da Entidade:</label>
+  <input type="text" id="codigoBusca" required>
+  <button type="button" onclick="exibirInformacoesEntidade()">Buscar Entidade</button>
+
+  <!-- Mensagem -->
+  <div id="mensagem"></div>
+
+  <script src="biblio.js"></script>
+</body>
+</html>
