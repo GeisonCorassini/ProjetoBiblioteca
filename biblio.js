@@ -151,7 +151,8 @@ function cadastrarLivro() {
 function cadastrarUsuario() {
   const nome = document.getElementById('usuarioNome').value;
   const registro = document.getElementById('usuarioRegistro').value;
-  const dataNascimento = document.getElementById('usuarioDataNascimento').value;
+  const dataNascimentoInput = document.getElementById('usuarioDataNascimento');
+  const dataNascimento = dataNascimentoInput.valueAsDate;
 
   if (nome && registro && dataNascimento) {
     const usuario = new Usuario(nome, registro, dataNascimento);
@@ -166,6 +167,7 @@ function cadastrarUsuario() {
     exibirMensagem("Preencha todos os campos para cadastrar o usuário.", false);
   }
 }
+
 
 // Função para emprestar um item
 function emprestarItem() {
