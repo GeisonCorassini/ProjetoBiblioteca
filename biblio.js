@@ -1,3 +1,20 @@
+const apiUrl = "https://api-biblioteca-mb6w.onrender.com/acervo";
+
+fetch(apiUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Erro na solicitação: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+
 class EntidadeBibliografica {
   constructor(titulo, autor, anoPublicacao, codigo) {
     this.titulo = titulo;
@@ -152,7 +169,12 @@ function cadastrarUsuario() {
   const nome = document.getElementById('usuarioNome').value;
   const registro = document.getElementById('usuarioRegistro').value;
   const dataNascimentoInput = document.getElementById('usuarioDataNascimento');
-  const dataNascimento = dataNascimentoInput.valueAsDate;
+  
+  // Obtém o valor como uma string no formato YYYY-MM-DD
+  const dataNascimentoString = dataNascimentoInput.value;
+
+  // Converte a string para um objeto Date considerando o fuso horário local
+  const dataNascimento = new Date(dataNascimentoString + 'T00:00:00');
 
   if (nome && registro && dataNascimento) {
     const usuario = new Usuario(nome, registro, dataNascimento);
