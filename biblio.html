@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca</title>
+  <link rel="stylesheet" href="inedx.css">
 </head>
 <body>
 
@@ -16,7 +17,7 @@
   <label for="livroAutor">Autor:</label>
   <input type="text" id="livroAutor" required>
   <label for="livroAno">Ano de Publicação:</label>
-  <input type="text" id="livroAno" required>
+  <input type="number" id="livroAno" required>
   <label for="livroCodigo">Código:</label>
   <input type="text" id="livroCodigo" required>
   <label for="livroGenero">Gênero:</label>
@@ -47,12 +48,18 @@
   <input type="text" id="itemCodigoDevolucao" required>
   <button type="button" onclick="devolverItem()">Devolver Item</button>
 
-  <!-- Procurar Entidade -->
-  <h2>Procurar Entidade</h2>
-  <label for="codigoBusca">Código da Entidade:</label>
-  <input type="text" id="codigoBusca" required>
-  <button type="button" onclick="exibirInformacoesEntidade()">Buscar Entidade</button>
-
+  <div class="listarAcervo">
+    <h1>Acervo</h1>
+    <div class="cabeçalho">
+      <label class="inform">titulo</label>
+      <label class="inform">autor</label>
+      <label class="inform">anoPublicacao</label>
+      <label class="inform">codigo</label>
+      <label class="inform">emprestado</label>
+      <label class="inform">usuario Emprestado</label>
+    </div>
+    <div id="listar"></div>
+  </div>
   <!-- Mensagem -->
   <div id="mensagem"></div>
 

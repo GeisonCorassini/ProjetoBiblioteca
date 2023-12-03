@@ -1,4 +1,7 @@
 const apiUrl = "https://api-biblioteca-mb6w.onrender.com/acervo";
+let currentPage = 1;
+let itemsPerPage = 5;
+
 
 fetch(apiUrl)
   .then(response => {
@@ -8,7 +11,12 @@ fetch(apiUrl)
     return response.json();
   })
   .then(data => {
+    for (let i = 0; i < data.length; i++) {
+      biblioteca.adicionarItem(data[i]);
+    }
+    listarAcervo(biblioteca);
     console.log(data);
+
   })
   .catch(error => {
     console.error(error);
@@ -42,6 +50,7 @@ class EntidadeBibliografica {
       console.log("A entidade não está emprestada.");
     }
   }
+
 }
 
 class Livro extends EntidadeBibliografica {
@@ -84,32 +93,9 @@ class Biblioteca {
     this.acervo.push(item);
   }
 
-  listarAcervo() {
-    console.log("Acervo da Biblioteca:");
-    this.acervo.forEach(item => console.log(`- ${item.titulo}`));
-  }
 
   adicionarUsuario(usuario) {
     this.usuarios.push(usuario);
-  }
-
-  emprestarItem(codigo, registroAcademico) {
-    const item = this.acervo.find(item => item.codigo === codigo);
-    const usuario = this.usuarios.find(user => user.registroAcademico === registroAcademico);
-
-    if (item && usuario) {
-      if (!item.emprestado) {
-        item.emprestar(usuario);
-        exibirMensagem(`Item ${item.titulo} emprestado para ${usuario.nome}.`, true);
-        console.log(`Item ${item.titulo} emprestado para ${usuario.nome}.`);
-      } else {
-        exibirMensagem(`O item ${item.titulo} já está emprestado.`, false);
-        console.log(`O item ${item.titulo} já está emprestado.`);
-      }
-    } else {
-      exibirMensagem("Item ou usuário não encontrado.", false);
-      console.log("Item ou usuário não encontrado.");
-    }
   }
 
   devolverEntidadePorCodigo(codigo) {
@@ -164,7 +150,7 @@ function cadastrarLivro() {
   }
 }
 
-// Função para cadastrar um usuário
+
 function cadastrarUsuario() {
   const nome = document.getElementById('usuarioNome').value;
   const registro = document.getElementById('usuarioRegistro').value;
@@ -195,46 +181,49 @@ function cadastrarUsuario() {
 function emprestarItem() {
   const codigo = document.getElementById('itemCodigo').value;
   const registro = document.getElementById('usuarioRegistroEmprestimo').value;
+  let livroEnprestando = biblioteca.acervo.find(livro => livro.codigo === codigo);
+  let usuarioEmprestimo = biblioteca.usuarios.find(usuario => usuario.registroAcademico === registro);
+  let indiceLivroProcurado = biblioteca.acervo.findIndex(livro => livro.codigo === codigo);
 
-  if (codigo && registro) {
-    biblioteca.emprestarItem(codigo, registro);
-  } else {
-    exibirMensagem("Preencha todos os campos para realizar o empréstimo.", false);
+  if (!codigo || !registro) {
+    exibirMensagem('Por favor, insira o código do item e o registro do usuário.', false);
+    return;
+  } else if (livroEnprestando && livroEnprestando.emprestado === true) {
+    exibirMensagem('Livro emprestado', false);
+  } else if (!livroEnprestando) {
+    exibirMensagem('Livro não encontrado', false);
+  } else if (!usuarioEmprestimo) {
+    exibirMensagem('Usuário não encontrado', false);
+    } else if (livroEnprestando && usuarioEmprestimo) {
+    biblioteca.acervo[indiceLivroProcurado].emprestado = true;
+    biblioteca.acervo[indiceLivroProcurado].usuarioEmprestimo = registro;
+    exibirMensagem('livro emprestado com sucesso', true);
+    } else {
+    exibirMensagem('Erro', false);
   }
 }
+
 
 // Função para devolver uma entidade
 function devolverItem() {
   const codigo = document.getElementById('itemCodigoDevolucao').value;
-
-  if (codigo) {
-    const sucessoDevolucao = biblioteca.devolverEntidadePorCodigo(codigo);
-
-    if (sucessoDevolucao) {
-      exibirMensagem("Entidade devolvida com sucesso.", true);
-    } else {
-      exibirMensagem("Entidade não encontrada para devolução.", false);
-    }
+  let livroDevolvido = biblioteca.acervo.find(livro => livro.codigo === codigo);
+  if (!codigo) {
+    exibirMensagem('Por favor, insira o código do item.', false);
+    return;
+  } else if (livroDevolvido && livroDevolvido.emprestado === false) {
+    exibirMensagem('Livro não emprestado', false);
+  } else if (!livroDevolvido) {
+    exibirMensagem('Livro não encontrado', false);
+  } else if (livroDevolvido && livroDevolvido.emprestado === true) {
+    biblioteca.acervo.find(livro => livro.codigo === codigo).emprestado = false;
+    biblioteca.acervo.find(livro => livro.codigo === codigo).usuarioEmprestimo = null;
+    exibirMensagem('Livro devolvido com sucesso', true);
   } else {
-    exibirMensagem("Digite um código para devolver a entidade.", false);
+    exibirMensagem('Erro', false);
   }
-}
 
-// Função para buscar informações de uma entidade
-function exibirInformacoesEntidade() {
-  const codigoBusca = document.getElementById('codigoBusca').value;
 
-  if (codigoBusca) {
-    const entidadeEncontrada = biblioteca.buscarEntidadePorCodigo(codigoBusca);
-
-    if (entidadeEncontrada) {
-      exibirMensagem(`Informações da entidade: ${entidadeEncontrada.titulo}`, true);
-    } else {
-      exibirMensagem("Entidade não encontrada.", false);
-    }
-  } else {
-    exibirMensagem("Digite um código para buscar a entidade.", false);
-  }
 }
 
 // Função para limpar os campos de cadastro de livro
@@ -255,3 +244,29 @@ function limparCamposUsuario() {
 
 // Instância da biblioteca
 const biblioteca = new Biblioteca();
+
+
+function listarAcervo(biblioteca) {
+  const container = document.getElementById('listar');
+  container.innerHTML = '';
+
+  biblioteca.acervo.forEach(biblioteca => {
+    const linha = document.createElement('tr');
+    let emprestado = biblioteca.emprestado ? 'Sim' : 'Não';
+    let usuarioEmprestimo = biblioteca.usuarioEmprestimo ? biblioteca.usuarioEmprestimo : 'Não emprestado';
+    linha.innerHTML += `
+                    <label class="inform">${biblioteca.titulo}</label>
+                    <label class="inform">${biblioteca.autor}</label>
+                    <label class="inform">${biblioteca.anoPublicacao}</label>
+                    <label class="inform">${biblioteca.codigo}</label>
+                    <label class="inform">${emprestado}</label>
+                    <label class="inform">${usuarioEmprestimo}</label>
+                    
+                `;
+    container.appendChild(linha);
+  });
+}
+addEventListener("click", function() {
+  listarAcervo(biblioteca);
+});
+
