@@ -33,24 +33,6 @@ class EntidadeBibliografica {
     this.usuarioEmprestimo = null;
   }
 
-  emprestar(usuario) {
-    if (!this.emprestado) {
-      this.emprestado = true;
-      this.usuarioEmprestimo = usuario;
-    } else {
-      console.log("A entidade já está emprestada.");
-    }
-  }
-
-  devolver() {
-    if (this.emprestado) {
-      this.emprestado = false;
-      this.usuarioEmprestimo = null;
-    } else {
-      console.log("A entidade não está emprestada.");
-    }
-  }
-
 }
 
 class Livro extends EntidadeBibliografica {
@@ -111,9 +93,7 @@ class Biblioteca {
     }
   }
 
-  buscarEntidadePorCodigo(codigo) {
-    return this.acervo.find(item => item.codigo === codigo);
-  }
+
 }
 
 // Função para exibir mensagens na interface
