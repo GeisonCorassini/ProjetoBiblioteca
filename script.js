@@ -230,23 +230,33 @@ function listarAcervo(biblioteca) {
   const container = document.getElementById('listar');
   container.innerHTML = '';
 
-  biblioteca.acervo.forEach(biblioteca => {
+  biblioteca.acervo.forEach(livro => {
     const linha = document.createElement('tr');
-    let emprestado = biblioteca.emprestado ? 'Sim' : 'Não';
-    let usuarioEmprestimo = biblioteca.usuarioEmprestimo ? biblioteca.usuarioEmprestimo : 'Não emprestado';
+    let emprestado = livro.emprestado ? 'Sim' : 'Não';
+    let NomeUsuraio = biblioteca.usuarios.find(usuario => usuario === biblioteca.usuarios.nome);
+    let usuarioEmprestimo = livro.usuarioEmprestimo ? livro.usuarioEmprestimo : 'Não emprestado';
+
+
+    let detalhe = livro.genero ? livro.genero : livro.edicao ? "Revista" : 'N/A';
+
     linha.innerHTML += `
-                    <label class="inform">${biblioteca.titulo}</label>
-                    <label class="inform">${biblioteca.autor}</label>
-                    <label class="inform">${biblioteca.anoPublicacao}</label>
-                    <label class="inform">${biblioteca.codigo}</label>
-                    <label class="inform">${emprestado}</label>
-                    <label class="inform">${usuarioEmprestimo}</label>
-                    
-                `;
+      <td class="inform">${livro.titulo}</td>
+      <td class="inform">${livro.autor}</td>
+      <td class="inform">${livro.anoPublicacao}</td>
+      <td class="inform">${detalhe}</td>
+      <td class="inform">${livro.codigo}</td>
+      <td class="inform">${emprestado}</td>
+      <td class="inform">${usuarioEmprestimo}</td>
+    `;
     container.appendChild(linha);
   });
 }
+
 addEventListener("click", function() {
   listarAcervo(biblioteca);
 });
 
+document.getElementById('livroAno').addEventListener('input', function () {
+  // Remove qualquer não número do valor do campo
+  this.value = this.value.replace(/\D/g, '');
+});
