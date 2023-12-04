@@ -247,3 +247,5 @@ addEventListener("click", function() {
 document.getElementById('livroAno').addEventListener('input', function () {
   this.value = this.value.replace(/\D/g, '');
 });
+
+// ;)
