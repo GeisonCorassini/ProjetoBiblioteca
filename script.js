@@ -96,19 +96,16 @@ class Biblioteca {
 
 }
 
-// Função para exibir mensagens na interface
 function exibirMensagem(mensagem, sucesso = true) {
   const mensagemDiv = document.getElementById('mensagem');
   mensagemDiv.textContent = mensagem;
   mensagemDiv.style.color = sucesso ? 'green' : 'red';
 
-  // Limpa a mensagem após alguns segundos
   setTimeout(() => {
     mensagemDiv.textContent = '';
   }, 3000);
 }
 
-// Função para cadastrar um livro
 function cadastrarLivro() {
   const titulo = document.getElementById('livroTitulo').value;
   const autor = document.getElementById('livroAutor').value;
@@ -123,7 +120,6 @@ function cadastrarLivro() {
     exibirMensagem("Livro cadastrado com sucesso!", true);
     console.log("Livro cadastrado:", livro);
 
-    // Limpa os campos após o cadastro bem-sucedido
     limparCamposLivro();
   } else {
     exibirMensagem("Preencha todos os campos para cadastrar o livro.", false);
@@ -136,10 +132,8 @@ function cadastrarUsuario() {
   const registro = document.getElementById('usuarioRegistro').value;
   const dataNascimentoInput = document.getElementById('usuarioDataNascimento');
   
-  // Obtém o valor como uma string no formato YYYY-MM-DD
   const dataNascimentoString = dataNascimentoInput.value;
 
-  // Converte a string para um objeto Date considerando o fuso horário local
   const dataNascimento = new Date(dataNascimentoString + 'T00:00:00');
 
   if (nome && registro && dataNascimento) {
@@ -149,7 +143,6 @@ function cadastrarUsuario() {
     exibirMensagem("Usuário cadastrado com sucesso!", true);
     console.log("Usuário cadastrado:", usuario);
 
-    // Limpa os campos após o cadastro bem-sucedido
     limparCamposUsuario();
   } else {
     exibirMensagem("Preencha todos os campos para cadastrar o usuário.", false);
@@ -157,7 +150,6 @@ function cadastrarUsuario() {
 }
 
 
-// Função para emprestar um item
 function emprestarItem() {
   const codigo = document.getElementById('itemCodigo').value;
   const registro = document.getElementById('usuarioRegistroEmprestimo').value;
@@ -184,7 +176,6 @@ function emprestarItem() {
 }
 
 
-// Função para devolver uma entidade
 function devolverItem() {
   const codigo = document.getElementById('itemCodigoDevolucao').value;
   let livroDevolvido = biblioteca.acervo.find(livro => livro.codigo === codigo);
@@ -206,7 +197,6 @@ function devolverItem() {
 
 }
 
-// Função para limpar os campos de cadastro de livro
 function limparCamposLivro() {
   document.getElementById('livroTitulo').value = '';
   document.getElementById('livroAutor').value = '';
@@ -215,14 +205,12 @@ function limparCamposLivro() {
   document.getElementById('livroGenero').value = '';
 }
 
-// Função para limpar os campos de cadastro de usuário
 function limparCamposUsuario() {
   document.getElementById('usuarioNome').value = '';
   document.getElementById('usuarioRegistro').value = '';
   document.getElementById('usuarioDataNascimento').value = '';
 }
 
-// Instância da biblioteca
 const biblioteca = new Biblioteca();
 
 
@@ -257,6 +245,5 @@ addEventListener("click", function() {
 });
 
 document.getElementById('livroAno').addEventListener('input', function () {
-  // Remove qualquer não número do valor do campo
   this.value = this.value.replace(/\D/g, '');
 });
